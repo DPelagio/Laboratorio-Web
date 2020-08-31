@@ -8,6 +8,8 @@ import NavBar from "./Components/NavBar";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import {Widget, addResponseMessage} from 'react-chat-widget';
 
+import SimpleForm from './Components/simple-chat-bot'
+
 import 'react-chat-widget/lib/styles.css'
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -31,9 +33,7 @@ export default function App() {
           <User />
         </Route>
       </Switch>
-      <Widget handleNewUserMessage={handleNewUserMessage} 
-              title="TEC"
-              subtitle="And my cool subtitle!"/>
+      <SimpleForm/>
     </Router>
   );
 }
