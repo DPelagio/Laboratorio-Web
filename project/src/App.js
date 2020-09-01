@@ -33,7 +33,7 @@ export default function App() {
           <User />
         </Route>
       </Switch>
-      <div style={{display:'flex',justifyContent:'flex-end',padding:'0 1em'}}>    
+      <div style={{display:'flex',position:'sticky',top:'1em',justifyContent:'flex-end',padding:'0 1em'}}>    
           <SimpleForm/>
       </div>
     </Router>
