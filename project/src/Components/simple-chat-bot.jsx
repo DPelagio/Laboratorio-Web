@@ -9,47 +9,36 @@ class Review extends Component {
 
     this.state = {
       message: '',
+      response :'',
     };
   }
 
   componentWillMount() {
     const { steps } = this.props;
     const { message} =  steps;
+    let res;
 
     this.setState({ message});
 
     axios.post('http://127.0.0.1:5002/getMessage', {
-      message: message,
+      message: message.value,
     })
-    .then(function (response) {
-      console.log(response);
+    .then(res => {
+
+      const response = res.data.este_es_el_mensaje.response;
+      this.setState({ response});
     })
     .catch(function (error) {
       console.log(error);
     });
+
   }
 
   render() {
-    const { message} = this.state;
+    const { message,response} = this.state;
     return (
       <div style={{ width: '100%' }}>
-        <h3>Summary</h3>
-        <table>
-          <tbody>
-            <tr>
-              <td>Name</td>
-              <td>{message.value}</td>
-            </tr>
-            <tr>
-              <td>Gender</td>
-              <td>Gender</td>
-            </tr>
-            <tr>
-              <td>Age</td>
-              <td>Age</td>
-            </tr>
-          </tbody>
-        </table>
+        <h3>{response}</h3>
       </div>
     );
   }
