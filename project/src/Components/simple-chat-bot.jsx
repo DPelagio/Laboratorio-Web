@@ -70,8 +70,13 @@ class SimpleForm extends Component {
           {
             id: '3',
             component: <Review />,
-            waitAction: true,
-            trigger: '1',
+            waitAction: false,
+            trigger: '4',
+          },
+          {
+            id: '4',
+            message: 'Que mas puedo hacer por ti?',
+            trigger: 'message',
           },
         ]}
       />
