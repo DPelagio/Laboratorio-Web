@@ -6,17 +6,13 @@ import Landing from "./Pages/Landing";
 import NavBar from "./Components/NavBar";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import {Widget, addResponseMessage} from 'react-chat-widget';
 
-import SimpleForm from './Components/simple-chat-bot'
+import ChatbotKit from './Components/Chatbot-kit';
 
-import 'react-chat-widget/lib/styles.css'
+
+import 'react-chat-widget/lib/styles.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const handleNewUserMessage = (newMessage) =>{
-  console.log(newMessage);
-  addResponseMessage('Hola -> ' + newMessage);
-}
 
 export default function App() {
   return (
@@ -33,9 +29,10 @@ export default function App() {
           <User />
         </Route>
       </Switch>
-      <div style={{display:'flex',position:'sticky',top:'1em',justifyContent:'flex-end',padding:'0 1em'}}>    
-          <SimpleForm/>
+      <div style={{display:'flex',position:'sticky',top:'1em',justifyContent:'flex-end',padding:'0 1em'}}>
+          <ChatbotKit/>
       </div>
+
     </Router>
   );
 }
