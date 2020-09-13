@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 class ActionProvider {
   // The action provider receives createChatBotMessage which you can use to define the bots response, and
   // the setState function that allows for manipulating the bots internal state.
@@ -8,21 +6,12 @@ class ActionProvider {
     this.setState = setStateFunc;
   }
 
-  handleMessageParser = () => {
+  handleMessageParser = (res) => {
     const messages = this.createChatBotMessage(
-      "The message parser controls how the bot reads input and decides which action to invoke.",
-      { widget: "messageParser", withAvatar: true }
+      res, { withAvatar: true }
     );
 
     this.addMessageToBotState(messages);
-  };
-
-  handleDefault = () => {
-    const message = this.createChatBotMessage("I couldn't understand your message, please rephrase it", {
-      withAvatar: true,
-    });
-
-    this.addMessageToBotState(message)
   };
 
   addMessageToBotState = (messages) => {

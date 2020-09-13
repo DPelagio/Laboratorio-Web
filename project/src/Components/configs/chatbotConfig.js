@@ -1,6 +1,6 @@
 import { createChatBotMessage } from "react-chatbot-kit";
 
-const botName = "DocsBot";
+const botName = "AI -assistant";
 
 const config = {
   botName: botName,
@@ -15,10 +15,10 @@ const config = {
   },
   initialMessages: [
     createChatBotMessage(
-      `Hi I'm ${botName}. I’m here to help you explain how I work.`
+      `Hi I'm ${botName}. I’m here to help you.`
     ),
     createChatBotMessage(
-      "Here's a quick overview over what I need to function. ask me about the different parts to dive deeper.",
+      "Here's a quick overview over what I need to function. Ask me about the prices or just say hi.",
       {
         withAvatar: false,
         delay: 500,

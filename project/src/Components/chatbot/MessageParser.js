@@ -13,22 +13,19 @@ class MessageParser {
   parse = (message) => {
     const lowerCase = message.toLowerCase();
 
-    let res;
-
-
     axios.post('http://127.0.0.1:5002/getMessage', {
-      message: lowerCase.value,
+      message: lowerCase,
     })
     .then(res => {
 
       const response = res.data.este_es_el_mensaje.response;
-      this.setState({ response});
-      console.log(response);
+      return this.actionProvider.handleMessageParser(response);
     })
     .catch(function (error) {
       console.log(error);
     });
   };
+
 }
 
 export default MessageParser;
