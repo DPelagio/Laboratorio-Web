@@ -9,6 +9,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import ChatbotKit from './Components/Chatbot-kit';
 
+import SimpleForm from './Components/simple-chat-bot'
+
 
 import 'react-chat-widget/lib/styles.css';
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -30,7 +32,7 @@ export default function App() {
         </Route>
       </Switch>
       <div style={{display:'flex',position:'sticky',top:'1em',justifyContent:'flex-end',padding:'0 1em'}}>
-          <ChatbotKit/>
+          <SimpleForm/>
       </div>
 
     </Router>

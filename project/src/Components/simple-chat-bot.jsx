@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ChatBot from 'react-simple-chatbot';
 import axios from 'axios'
+import parse from 'html-react-parser';
 
 class Review extends Component {
   constructor(props) {
@@ -37,9 +38,7 @@ class Review extends Component {
   render() {
     const { message,response} = this.state;
     return (
-      <div style={{ width: '100%' }}>
-        <h3>{response}</h3>
-      </div>
+        parse(response)
     );
   }
 }
