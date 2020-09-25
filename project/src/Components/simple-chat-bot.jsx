@@ -4,9 +4,8 @@ import ChatBot from 'react-simple-chatbot';
 import axios from 'axios'
 import { ThemeProvider } from 'styled-components';
 import parse from 'html-react-parser';
-import { Carousel ,Card} from "react-bootstrap";
-import image from "../img/ipad.png";
-import JsxParser from 'react-jsx-parser'
+import JsxParser from 'react-jsx-parser';
+import Carrusel from "./Carrusel"
 
 //Styles
 import "./chat-bot-bubble.scss"
@@ -19,6 +18,7 @@ class Review extends Component {
     this.state = {
       message: '',
       response :'',
+      intent : '',
     };
   }
 
@@ -35,6 +35,7 @@ class Review extends Component {
     .then(res => {
 
       const response = res.data.este_es_el_mensaje.response;
+      this.state.intent = res.data.este_es_el_mensaje.intent;
       this.setState({ response});
     })
     .catch(function (error) {
@@ -44,49 +45,37 @@ class Review extends Component {
   }
 
   render() {
-    const { message,response} = this.state;
+    const {response} = this.state;
 
-    return (
-      parse(response)
+    console.log(this.state.intent)
 
-      /*
-<Carousel>
-<Carousel.Item>
-  <Card style={{ width: '100%' }}>
-  <Card.Img style={{ height: '200px' }} variant="top" src={image} />
-  <Card.Body>
-    <Card.Title>Ipad 32 gb</Card.Title>
-    <Card.Text>
-      &#36;299
-    </Card.Text>
-  </Card.Body>
-  </Card>
-</Carousel.Item>
-<Carousel.Item>
- <Card style={{ width: '100%' }}>
-  <Card.Img style={{ height: '200px' }} variant="top" src={image} />
-  <Card.Body>
-   <Card.Title>Ipad 64 gb</Card.Title>
-   <Card.Text>
-    &#36;399
-   </Card.Text>
-  </Card.Body>
- </Card>
-</Carousel.Item>
-<Carousel.Item>
- <Card style={{ width: '100%' }}>
-  <Card.Img style={{ height: '200px' }} variant="top" src={image} />
-   <Card.Body>
-    <Card.Title>Ipad 128 gb</Card.Title>
-    <Card.Text>
-     &#36;499
-    </Card.Text>
-   </Card.Body>
-  </Card>
-</Carousel.Item>
-</Carousel>
-*/
-    );
+    if (this.state.intent === 'buildPCIntent'){
+      console.log(this.state.intent)
+      return (
+        <>
+        <div>
+          <div>
+            {response}
+          </div>
+          <div>
+            <Carrusel props={response}></Carrusel>
+          </div>
+        </div>
+        
+        
+        
+        </>
+      );
+    }
+    else
+    {
+      console.log(this.state.intent)
+      return (
+        response
+      );
+    }
+
+    
   }
 }
 

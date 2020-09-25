@@ -112,6 +112,7 @@ def watson_response(watson_session_id,message):
 
     response = {
         "response": watson_response["output"]["generic"][0]["text"],
+        "intent":watson_response["output"]["intents"][0]["intent"],
         "session_id": watson_session_id
     }
 
