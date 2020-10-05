@@ -137,32 +137,52 @@ def watson_instance(iam_apikey: str, url: str, version: str = "2020-08-31") -> A
     return assistant
 
 
+def connect_db():
+    client = pymongo.MongoClient(uri)
+    return client
+
+
+def exit_db(client):
+    client.close
+
+
+def write_intent(client, post):
+    db = client.test
+    collection = db.test
+    intent_insertion = collection.insert_one(post)
+
+    return intent_insertion
+
+
+def get_intent_response(client, intent):
+    db = client.test
+    collection2 = db.responses
+    intent_response = collection2.find_one({"intent" : intent})
+    mongoQuery = intent_response["response"]
+
+    return mongoQuery
+
+
 class GET_MESSAGE(Resource):
     def post(self):
-        client = pymongo.MongoClient(uri, 27017)
-        db = client.test
-        collection = db.test
-        
+        cliente = connect_db()
+
         watson_session_id = watson_create_session()
         global_text = request.json["message"]
         response = watson_response(watson_session_id,global_text)
 
         intent = response["intent"] ## Esto lo mandamos a mongo
         message = global_text
-        print(message, " \n", intent)
-        post = [{
+        post = {
             "intent" : intent,
             "message" : message
-        }]
-        print(post)
-        fivestar = db.test.find_one({'message': 'hola'})
-        print(fivestar)
-        
+        }
 
-        # intent_response = jsonify( html_body = mongoQuery)
-        client.close()
+        insertar_intent = write_intent(cliente, post)
+        intent_response = get_intent_response(cliente, intent)
+        exit_db(cliente)
 
-        return jsonify( html_body = response)
+        return intent_response
 
 
 api.add_resource(GET_MESSAGE, '/getMessage')  # Route_1
