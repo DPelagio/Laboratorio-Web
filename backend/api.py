@@ -16,6 +16,8 @@ from ibm_watson import AssistantV2, ApiException
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from flask import jsonify
 
+import pymongo
+
 load_dotenv()
 
 app = Flask(__name__)
@@ -26,6 +28,9 @@ assistant_api_key = os.getenv("assistant_api_key")
 assistant_url = os.getenv("assistant_url")
 assistant_version = os.getenv("assistant_version")
 assistant_id = os.getenv("assistant_id")
+
+global_text = ''
+uri = os.getenv("uri")
 
 request_data = {
             "assistant_api_key": assistant_api_key,
@@ -88,7 +93,6 @@ def watson_response(watson_session_id,message):
                 assistant_id=request_data.get("assistant_id")
             ).get_result()
             watson_session_id = watson_session["session_id"]
-
             watson_response = assistant.message(
                 assistant_id=request_data.get('assistant_id'),
                 session_id=watson_session_id,
@@ -133,15 +137,32 @@ def watson_instance(iam_apikey: str, url: str, version: str = "2020-08-31") -> A
     return assistant
 
 
-
 class GET_MESSAGE(Resource):
     def post(self):
-
+        client = pymongo.MongoClient(uri, 27017)
+        db = client.test
+        collection = db.test
+        
         watson_session_id = watson_create_session()
+        global_text = request.json["message"]
+        response = watson_response(watson_session_id,global_text)
 
-        response = watson_response(watson_session_id,request.json["message"])
+        intent = response["intent"] ## Esto lo mandamos a mongo
+        message = global_text
+        print(message, " \n", intent)
+        post = [{
+            "intent" : intent,
+            "message" : message
+        }]
+        print(post)
+        fivestar = db.test.find_one({'message': 'hola'})
+        print(fivestar)
+        
 
-        return jsonify( este_es_el_mensaje = response)
+        # intent_response = jsonify( html_body = mongoQuery)
+        client.close()
+
+        return jsonify( html_body = response)
 
 
 api.add_resource(GET_MESSAGE, '/getMessage')  # Route_1
