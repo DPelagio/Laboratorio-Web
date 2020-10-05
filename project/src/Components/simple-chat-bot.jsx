@@ -33,9 +33,10 @@ class Review extends Component {
       message: message.value,
     })
     .then(res => {
-
-      const response = res.data.este_es_el_mensaje.response;
-      this.state.intent = res.data.este_es_el_mensaje.intent;
+      console.log(res)
+      const response = res.data;
+      
+      // this.state.intent = res.data.este_es_el_mensaje.intent;
       this.setState({ response});
     })
     .catch(function (error) {
@@ -71,7 +72,7 @@ class Review extends Component {
     {
       console.log(this.state.intent)
       return (
-        response
+        parse(response)
       );
     }
 
