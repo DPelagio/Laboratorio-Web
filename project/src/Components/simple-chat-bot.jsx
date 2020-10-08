@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState ,useEffect} from 'react';
 import PropTypes from 'prop-types';
 import ChatBot from 'react-simple-chatbot';
 import axios from 'axios'
@@ -11,126 +11,73 @@ import Carrusel from "./Carrusel"
 import "./chat-bot-bubble.scss"
 
 
-class Review extends Component {
-  constructor(props) {
-    super(props);
+function SimpleForm(props){
+  const theme = {
+    background: '#e6f8ff',
+    fontFamily: 'Helvetica Neue',
+    headerBgColor: '#17c1ff',
+    headerFontColor: '#fff',
+    headerFontSize: '15px',
+    botBubbleColor: '#17c1ff',
+    botFontColor: '#fff',
+    userBubbleColor: '#fff',
+    userFontColor: '#4a4a4a',
+  };
 
-    this.state = {
-      message: '',
-      response :'',
-      intent : '',
-    };
-  }
+  const [response, setResponse] = useState("hola");
 
-  componentWillMount() {
-    const { steps } = this.props;
-    const { message} =  steps;
-    let res;
+  const [tri, setTri] = useState(1);
 
-    this.setState({ message});
+  function getMessage(message) {
 
     axios.post('http://127.0.0.1:5002/getMessage', {
-      message: message.value,
+      message: message,
     })
     .then(res => {
-      console.log(res)
-      const response = res.data;
-      
-      // this.state.intent = res.data.este_es_el_mensaje.intent;
-      this.setState({ response});
+
+      setResponse("res.data")
+      console.log("Hhhh")
+      return 1
+  
     })
     .catch(function (error) {
       console.log(error);
+      return 3
     });
-
-  }
-
-  render() {
-    const {response} = this.state;
-
-    console.log(this.state.intent)
-
-    if (this.state.intent === 'buildPCIntent'){
-      console.log(this.state.intent)
-      return (
-        <>
-        <div>
-          <div>
-            {response}
-          </div>
-          <div>
-            <Carrusel props={response}></Carrusel>
-          </div>
-        </div>
-        
-        
-        
-        </>
-      );
-    }
-    else
-    {
-      console.log(this.state.intent)
-      return (
-        parse(response)
-      );
-    }
-
     
   }
+
+  useEffect(() => {
+    // action on update of movies
+  }, [response]);
+
+  
+
+  return (
+    <ThemeProvider theme={theme}>
+
+      <ChatBot
+        steps={[
+          {
+            id: '1',
+            message: 'Hi, what can I help you?',
+            trigger: 'message',
+          },
+          {
+            id: 'message',
+            user: true,
+            trigger: '3',
+          },
+          {
+            id: '3',
+            component: <Carrusel/>,
+            trigger: 'message',
+          }
+        ]}
+      />
+
+    </ThemeProvider>
+    
+  )
 }
-
-Review.propTypes = {
-  steps: PropTypes.object,
-};
-
-Review.defaultProps = {
-  steps: undefined,
-};
-
-class SimpleForm extends Component {
-  render() {
-
-    const theme = {
-      background: '#e6f8ff',
-      fontFamily: 'Helvetica Neue',
-      headerBgColor: '#17c1ff',
-      headerFontColor: '#fff',
-      headerFontSize: '15px',
-      botBubbleColor: '#17c1ff',
-      botFontColor: '#fff',
-      userBubbleColor: '#fff',
-      userFontColor: '#4a4a4a',
-    };
-
-    return (
-      <ThemeProvider theme={theme}>
-
-        <ChatBot
-          steps={[
-            {
-              id: '1',
-              message: 'Hi, what can I help you?',
-              trigger: 'message',
-            },
-            {
-              id: 'message',
-              user: true,
-              trigger: '3',
-            },
-            {
-              id: '3',
-              component: <Review />,
-              waitAction: false,
-              trigger: 'message',
-            }
-          ]}
-        />
-
-      </ThemeProvider>
-      
-    );
-  }
-}
-
 export default SimpleForm;
