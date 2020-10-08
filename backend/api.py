@@ -114,11 +114,17 @@ def watson_response(watson_session_id,message):
     except:
         pass
 
-    response = {
-        "response": watson_response["output"]["generic"][0]["text"],
-        "intent":watson_response["output"]["intents"][0]["intent"],
-        "session_id": watson_session_id
-    }
+    if len(watson_response["output"]["entities"]) == 0:
+        response = {
+            "intent":watson_response["output"]["intents"][0]["intent"],
+            "session_id": watson_session_id
+        }
+    else:
+        response = {
+            "intent":watson_response["output"]["intents"][0]["intent"],
+            "entities":watson_response["output"]["entities"],
+            "session_id": watson_session_id
+        }
 
     return response
 
@@ -147,18 +153,22 @@ def exit_db(client):
 
 
 def write_intent(client, post):
-    db = client.test
-    collection = db.test
+    db = client.LabWeb 
+    collection = db.requests
     intent_insertion = collection.insert_one(post)
 
     return intent_insertion
 
 
 def get_intent_response(client, intent):
-    db = client.test
-    collection2 = db.responses
-    intent_response = collection2.find_one({"intent" : intent})
-    mongoQuery = intent_response["response"]
+    db = client.LabWeb
+    collection = db.responses
+    intent_response = collection.find_one({"intent" : intent})
+
+    if(intent_response):
+        mongoQuery = intent_response["response"]
+    else:
+        mongoQuery = "No response"
 
     return mongoQuery
 
@@ -172,14 +182,17 @@ class GET_MESSAGE(Resource):
         response = watson_response(watson_session_id,global_text)
 
         intent = response["intent"] ## Esto lo mandamos a mongo
+        
         message = global_text
         post = {
             "intent" : intent,
             "message" : message
         }
 
-        insertar_intent = write_intent(cliente, post)
+        #insertar_intent = write_intent(cliente, post)
+        
         intent_response = get_intent_response(cliente, intent)
+    
         exit_db(cliente)
 
         return intent_response

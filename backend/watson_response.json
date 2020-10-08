@@ -1,0 +1,96 @@
+{
+    "watson_response": [
+        {
+            "intent":"helloIntent",
+            "type":"text",
+            "response":"Hola, ¿En que te puedo ayudar?"
+
+        },
+        {
+            "intent":"buildPCIntent",
+            "response": [
+                {
+                    "entity":"type",
+                    "value":"computadora",
+                    "response":"¡¡ Perfecto, empecemos a armar tu nueva computadora !!",
+                    "type":"text"
+                },
+                {
+                    "entity":"type",
+                    "value":"compu",
+                    "response":"¡¡ Perfecto, empecemos a armar tu nueva compu !!",
+                    "type":"text"
+                },
+                {
+                    "entity":"type",
+                    "value":"pc",
+                    "response":"¡¡ Perfecto, empecemos a armar tu nueva pc !!",
+                    "type":"text"
+                },
+                {
+                    
+                }
+            ]
+        },
+        {
+            "intent":"GPUIntent",
+            "type":"html",
+            "response":[
+                {
+                    "name":"Procesador Intel Celeron G4920 Dual core / 3.20GHz / 2MB Cache / BX80684G4920",
+                    "type":"Intel",
+                    "precio":1480.49
+                },
+                {
+                    "name":"Procesador Intel Core i3-9100F / 4 Nucleos - 4 Hilos / Socket 1151-V2 (Requiere Tarjeta de Video) / BX80684I39100F",
+                    "type":"Intel",
+                    "precio":1946.49
+                },
+                {
+                    "name":"Procesador Intel Core i3-9100 / 4 Nucleos - 4 Hilos / Socket 1151-V2 / BX80684I39100",
+                    "type":"Intel",
+                    "precio":2799.00
+                },
+                {
+                    "name":"Procesador Intel Core i5-10400F 2.90GHz / 4.30GHz / 6 Nucleos / 12 Hilos / Socket LGA1200 - Intel 10TH Generación / REQUIERE TARJETA DE VÍDEO / BX8070110400F",
+                    "type":"Intel",
+                    "precio":4099.00
+                },
+                {
+                    "name":"Procesador Intel Core i7 9700F 3GHz / 4.70GHz / 8 Nucleos / 8 Hilos / Socket 1151-v2 / Incluye disipador de calor y Requiere Tarjeta de video / BX80684I79700F0",
+                    "type":"Intel",
+                    "precio":7675.59
+                },
+                {
+                    "name":"Procesador AMD A10 9700 3.5GHz Turbo 3.8GHz 4 Nucleos 4 Hilos Socket AM4 / AD9700AGABBOX",
+                    "type":"AMD",
+                    "precio":1859.00
+                },
+                {
+                    "name":"Procesador AMD Ryzen 3 3100 / 4 Core / 8 Thread / 3.9GHz Boost / Wraith Stealth / (Requiere Tarjeta de Video) / 100-100000284BOX",
+                    "type":"AMD",
+                    "precio":2679.00
+                },
+                {
+                    "name":"Procesador AMD Ryzen 5 2600 / 6 Core / 12 Thread / 3.4GHz / 3.9GHz Boost / TDP 65W / Wraith Stealth (Requiere Tarjeta de Video) / YD2600BBAFBOX",
+                    "type":"AMD",
+                    "precio":3059.00
+                },
+                {
+                    "name":"Procesador AMD Ryzen 5 3600X / 6 Core / 12 Thread / 3.8GHz / 4.4GHz Boost / TDP 95W / Wraith Spire (Requiere Tarjeta de Video) / 100-100000022BOX",
+                    "type":"AMD",
+                    "precio":5399.00
+                },
+                {
+                    "name":"Procesador AMD Ryzen 7 3800XT / 8 Core / 16 Thread / 3.9GHz / 4.7GHz Boost / TDP 105W",
+                    "type":"AMD",
+                    "precio":8999
+                }
+            ]
+
+
+        }
+
+
+    ]
+}
