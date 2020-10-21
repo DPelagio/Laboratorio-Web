@@ -89,6 +89,68 @@
             ]
 
 
+        },
+        {
+            "id":"1",
+            "type":"multiple",
+            "response":[
+                {
+                    "type":"text",
+                    "text":"¿Cuál marca de procesador quieres?"
+
+                },
+                {
+                    "type":"option",
+                    "options":[
+                        {
+                            "name":"Intel",
+                            "value":"intel"
+
+                        },
+                        {
+                            "name":"AMD",
+                            "value":"amd"
+
+                        }
+                    ]
+
+                }
+            ]
+        },
+        {
+            "id":"2",
+            "type":"multiple",
+            "response":[
+                {
+                    "type":"text",
+                    "response":"¿Cuál procesador Intel quieres?"
+
+                },
+                {
+                    "type":"carrs",
+                    "response":[
+                        {
+                            "name":"Intel Core i5",
+                            "value":"i5",
+                            "img":"",
+                            "price":8999
+                        },
+                        {
+                            "name":"Intel Core i7",
+                            "value":"i7",
+                            "img":"",
+                            "price":8999
+                        },
+                        {
+                            "name":"Intel Core i9",
+                            "value":"i9",
+                            "img":"",
+                            "price":8999
+                        }
+                    ]
+
+                }
+            ]
         }
 
 

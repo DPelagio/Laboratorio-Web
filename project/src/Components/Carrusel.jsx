@@ -1,13 +1,14 @@
 import React from "react";
 import { Carousel ,Card} from "react-bootstrap";
 import image from "../img/intel.png";
-import { Loading } from 'react-simple-chatbot';
+//import { Loading } from 'react-simple-chatbot';
 
 class Carrusel extends React.Component {
     constructor(props){
         super(props);
 
-        console.log(props)
+        console.log("Respuesta",props.response)
+        
         
     }
 

@@ -1,11 +1,11 @@
 import React, { useState ,useEffect} from 'react';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 import ChatBot from 'react-simple-chatbot';
-import axios from 'axios'
 import { ThemeProvider } from 'styled-components';
-import parse from 'html-react-parser';
-import JsxParser from 'react-jsx-parser';
+//import parse from 'html-react-parser';
+//import JsxParser from 'react-jsx-parser';
 import Carrusel from "./Carrusel"
+import ChatBotHandler from "./ChatBotHandler"
 
 //Styles
 import "./chat-bot-bubble.scss"
@@ -26,26 +26,6 @@ function SimpleForm(props){
 
   const [response, setResponse] = useState("hola");
 
-  const [tri, setTri] = useState(1);
-
-  function getMessage(message) {
-
-    axios.post('http://127.0.0.1:5002/getMessage', {
-      message: message,
-    })
-    .then(res => {
-
-      setResponse("res.data")
-      console.log("Hhhh")
-      return 1
-  
-    })
-    .catch(function (error) {
-      console.log(error);
-      return 3
-    });
-    
-  }
 
   useEffect(() => {
     // action on update of movies
@@ -70,7 +50,12 @@ function SimpleForm(props){
           },
           {
             id: '3',
-            component: <Carrusel/>,
+            component: <ChatBotHandler setResponse={setResponse}/>,
+            trigger: 'message',
+          },
+          {
+            id: '4',
+            component: <Carrusel response={response}/>,
             trigger: 'message',
           }
         ]}

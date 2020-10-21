@@ -7,7 +7,7 @@ import NavBar from "./Components/NavBar";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import ChatbotKit from './Components/Chatbot-kit';
+//import ChatbotKit from './Components/Chatbot-kit';
 
 import SimpleForm from './Components/simple-chat-bot'
 
