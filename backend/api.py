@@ -114,18 +114,12 @@ def watson_response(watson_session_id,message):
     except:
         pass
 
-    if len(watson_response["output"]["entities"]) == 0:
-        response = {
-            "intent":watson_response["output"]["intents"][0]["intent"],
-            "session_id": watson_session_id
-        }
-    else:
-        response = {
-            "intent":watson_response["output"]["intents"][0]["intent"],
-            "entities":watson_response["output"]["entities"],
-            "session_id": watson_session_id
-        }
-
+    
+    response = {
+        "id":watson_response["output"]["generic"][0]["text"],
+        "session_id": watson_session_id
+    }
+    
     return response
 
 def watson_instance(iam_apikey: str, url: str, version: str = "2020-08-31") -> AssistantV2:
@@ -163,14 +157,19 @@ def write_intent(client, post):
 def get_intent_response(client, intent):
     db = client.LabWeb
     collection = db.responses
-    intent_response = collection.find_one({"intent" : intent})
+    intent_response = collection.find_one({"id" : intent})
 
     if(intent_response):
-        mongoQuery = intent_response["response"]
+        mongoQuery = intent_response["response"][0]["text"]
     else:
         mongoQuery = "No response"
 
     return mongoQuery
+
+class CREATE_SESSION(Resource):
+    def get(self):
+        
+        return watson_create_session()
 
 
 class GET_MESSAGE(Resource):
@@ -178,18 +177,21 @@ class GET_MESSAGE(Resource):
         cliente = connect_db()
 
         watson_session_id = watson_create_session()
+        #watson_session_id = request.json["watson_session_id"]
         global_text = request.json["message"]
         response = watson_response(watson_session_id,global_text)
-
-        intent = response["intent"] ## Esto lo mandamos a mongo
         
+        intent = response["id"] ## Esto lo mandamos a mongo
+        '''
         message = global_text
         post = {
             "intent" : intent,
             "message" : message
-        }
+        }'''
 
         #insertar_intent = write_intent(cliente, post)
+
+        print(intent)
         
         intent_response = get_intent_response(cliente, intent)
     
@@ -197,7 +199,7 @@ class GET_MESSAGE(Resource):
 
         return intent_response
 
-
+api.add_resource(CREATE_SESSION, '/createSession')  # Route_0
 api.add_resource(GET_MESSAGE, '/getMessage')  # Route_1
 
 if __name__ == '__main__':
