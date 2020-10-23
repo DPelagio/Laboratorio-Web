@@ -7,12 +7,11 @@ import NavBar from "./Components/NavBar";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-//import ChatbotKit from './Components/Chatbot-kit';
 
 import SimpleForm from './Components/simple-chat-bot'
+import ReactChatWidget from './Components/React-chat-widget'
 
 
-import 'react-chat-widget/lib/styles.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 
@@ -32,7 +31,7 @@ export default function App() {
         </Route>
       </Switch>
       <div style={{display:'flex',position:'sticky',top:'1em',justifyContent:'flex-end',padding:'0 1em'}}>
-          <SimpleForm/>
+          <ReactChatWidget/>
       </div>
 
     </Router>
