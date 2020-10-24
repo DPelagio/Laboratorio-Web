@@ -160,9 +160,12 @@ def get_intent_response(client, intent):
     intent_response = collection.find_one({"id" : intent})
 
     if(intent_response):
-        mongoQuery = intent_response["response"][0]["text"]
+        mongoQuery = intent_response["response"]
     else:
-        mongoQuery = "No response"
+        mongoQuery = [{
+                        "type":"text",
+                        "text":"Lo siento, no encontre un mensaje"
+                    }]
 
     return mongoQuery
 
@@ -179,8 +182,9 @@ class GET_MESSAGE(Resource):
         watson_session_id = watson_create_session()
         #watson_session_id = request.json["watson_session_id"]
         global_text = request.json["message"]
-        response = watson_response(watson_session_id,global_text)
         
+        response = watson_response(watson_session_id,global_text)
+        print (response)
         intent = response["id"] ## Esto lo mandamos a mongo
         '''
         message = global_text
@@ -197,10 +201,27 @@ class GET_MESSAGE(Resource):
     
         exit_db(cliente)
 
+        return jsonify(response=intent_response)
+
+class GET_WHATSAPP_MESSAGE(Resource):
+    def post(self):
+
+        cliente = connect_db()
+
+        watson_session_id = watson_create_session()
+        
+
+        response = watson_response(watson_session_id,global_text)
+        
+        
+    
+        exit_db(cliente)
+
         return intent_response
 
 api.add_resource(CREATE_SESSION, '/createSession')  # Route_0
 api.add_resource(GET_MESSAGE, '/getMessage')  # Route_1
+api.add_resource(GET_WHATSAPP_MESSAGE, '/getWhatsappMessage')  # Route_2
 
 if __name__ == '__main__':
     app.run(port='5002')

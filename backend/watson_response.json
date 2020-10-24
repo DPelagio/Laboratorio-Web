@@ -1,9 +1,15 @@
 {
     "watson_response": [
         {
-            "intent":"helloIntent",
-            "type":"text",
-            "response":"Hola, ¿En que te puedo ayudar?"
+            "id":"helloIntent",
+            "response":[
+                {
+                    "type":"text",
+                    "text":"¿Cuál marca de procesador quieres?"
+
+                }
+            ]
+
 
         },
         {
