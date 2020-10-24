@@ -21,16 +21,12 @@ class NavBar extends React.Component {
     render() {
         return(
             <Navbar bg="dark" variant="light">
-                <Navbar.Brand href="/">Navbar</Navbar.Brand>
+                <Navbar.Brand href="/">TECompu</Navbar.Brand>
                 <Nav className="mr-auto">
                     <Nav.Link href="/home">Home</Nav.Link>
-                    <Nav.Link href="/user">User</Nav.Link>
-                    <Nav.Link href="/">{this.state.search}</Nav.Link>
+                    <Nav.Link href="/pc">Buy PC</Nav.Link>
+                    <Nav.Link href="/carrito">Cart</Nav.Link>
                 </Nav>
-                <Form inline>
-                    <FormControl type="text" onChange={this.searchItem} placeholder="Search" className="mr-sm-2" />
-                    <Button variant="outline-info">Search</Button>
-                </Form>
                 <Profile/>
             </Navbar>
         );

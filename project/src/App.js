@@ -1,6 +1,7 @@
 import React from 'react';
 import Home from "./Pages/Home";
-import User from './Pages/User';
+import PC from './Pages/PC';
+import Carrito from './Pages/Carrito';
 import Landing from "./Pages/Landing";
 
 import NavBar from "./Components/NavBar";
@@ -26,8 +27,11 @@ export default function App() {
         <Route path="/home">
           <Home />
         </Route>
-        <Route path="/user">
-          <User />
+        <Route path="/pc">
+          <PC />
+        </Route>
+        <Route path="/carrito">
+          <Carrito />
         </Route>
       </Switch>
       <div style={{display:'flex',position:'sticky',top:'1em',justifyContent:'flex-end',padding:'0 1em'}}>
