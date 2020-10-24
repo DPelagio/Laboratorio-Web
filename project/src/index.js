@@ -4,23 +4,6 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Auth0Provider } from "@auth0/auth0-react";
-import { useAuth0 } from "@auth0/auth0-react";
-
-import LoginButton from './Components/LoginButton'
-
-
-function AuthApp(){
-
-  const {isAuthenticated} = useAuth0();
-
-  return(
-    isAuthenticated ?
-      <App />
-    :
-      <LoginButton/>
-  );
-  
-}
 
 ReactDOM.render(
 
@@ -31,7 +14,7 @@ ReactDOM.render(
     redirectUri={window.location.origin}
   >
     
-    <AuthApp />
+    <App />
   
   </Auth0Provider>,
   document.getElementById('root')

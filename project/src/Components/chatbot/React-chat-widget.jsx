@@ -11,7 +11,6 @@ import 'react-chat-widget/lib/styles.css';
 
 function ReactChatWidget(props){
 
-    const [res,setRes] = useState("")
     const [sessionId, setSessionId] = useState("")
     const [shopcart ,setShopcart] = useState(false)
   
@@ -27,7 +26,7 @@ function ReactChatWidget(props){
           })
           .catch(function (error) {
             console.log(error);
-            addResponseMessage("Perdimos la conexión con el servidor");
+            addResponseMessage("Hubo un problema con el servidor");
           });
     
     }, []);
@@ -44,24 +43,34 @@ function ReactChatWidget(props){
         })
         .then(res => {
           
-          console.log(res)
-          //setRes(res.data)
 
+         for(let i=0;i<res.data.response.length;i++)
+         {
 
-          
-          addResponseMessage(res.data.response[0].text)
-          if (res.data.response.length > 1 && res.data.response[1].type == "option"){
-            renderCustomComponent(Option, {options:res.data.response[1].options, handle:handleNewUserMessage})
-          }
-          else if (res.data.response.length > 1 && res.data.response[1].type == "carousel"){
-            renderCustomComponent(Carrousel, {options:res.data.response[1].options, handle:handleNewUserMessage})
-          }
-          
+            if(res.data.response[i].type === "text"){
+
+              addResponseMessage(res.data.response[i].text)
+
+            }else if(res.data.response[i].type === "option"){
+
+              renderCustomComponent(Option, {options:res.data.response[i].options, handle:handleNewUserMessage})
+
+            }else if(res.data.response[i].type === "carousel")
+            {
+              renderCustomComponent(Carrousel, {options:res.data.response[i].options, handle:handleNewUserMessage})
+            }
+            
+         }
+         
+         if(res.data.response.length === 0)
+         {
+          addResponseMessage("Upss, no tenemos una respuesta para eso")
+         }
       
         })
         .catch(function (error) {
           console.log(error);
-          addResponseMessage("Perdimos la conexión con el servidor");
+          addResponseMessage("Hubo un problema con el servidor");
         });
         
     };
