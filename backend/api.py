@@ -29,6 +29,7 @@ assistant_url = os.getenv("assistant_url")
 assistant_version = os.getenv("assistant_version")
 assistant_id = os.getenv("assistant_id")
 
+
 global_text = ''
 uri = os.getenv("uri")
 
@@ -178,16 +179,17 @@ class CREATE_SESSION(Resource):
 class GET_MESSAGE(Resource):
     def post(self):
         cliente = connect_db()
-
-        watson_session_id = watson_create_session()
+        #watson_session_id = watson_create_session()
+        watson_session_id = request.json["sessionId"]
         #watson_session_id = request.json["watson_session_id"]
         global_text = request.json["message"]
-        
+        print("session:", watson_session_id)
         response = watson_response(watson_session_id,global_text)
         print (response)
         intent = response["id"] ## Esto lo mandamos a mongo
         '''
         message = global_text
+        
         post = {
             "intent" : intent,
             "message" : message

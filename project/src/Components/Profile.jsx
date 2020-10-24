@@ -16,12 +16,14 @@ const Profile = () => {
   return (
     isAuthenticated ? 
       <>
-      <LogOutButton/>
+     
       <div>
-        <img src={user.picture} alt={user.name} />
-        <h2>{user.name}</h2>
-        <p>{user.email}</p>
-      </div>
+        
+        <h5 style={{ paddingRight: '1em' }}>{user.name} </h5>
+        
+
+      </div> 
+      <LogOutButton/>
       </>
     : 
       <LoginButton/>

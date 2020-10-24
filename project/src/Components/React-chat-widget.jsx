@@ -3,7 +3,7 @@ import { Widget , addResponseMessage, renderCustomComponent} from 'react-chat-wi
 import axios from 'axios'
 
 
-import Carrusel from "./Carrusel"
+import Carrousel from "./Carrousel"
 import Option from "./Option"
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -11,14 +11,23 @@ import 'react-chat-widget/lib/styles.css';
 
 function ReactChatWidget(props){
 
-    const [res,setRes] = ("")
-    const [sessionId, setSessionId] = ("")
+    const [res,setRes] = useState("")
+    const [sessionId, setSessionId] = useState("")
+  
 
     useEffect(() => {
 
-      
+          axios.get('http://127.0.0.1:5002/createSession')
+          .then(res => {
 
-        addResponseMessage('Hola, Podemos ayudarte a armar tu computadora!');
+            addResponseMessage('Hola, Podemos ayudarte a armar tu computadora!');
+            setSessionId(res.data)       
+        
+          })
+          .catch(function (error) {
+            console.log(error);
+            addResponseMessage("Perdimos la conexión con el servidor");
+          });
     
     }, []);
 
@@ -29,6 +38,7 @@ function ReactChatWidget(props){
         console.log(newMessage)
         axios.post('http://127.0.0.1:5002/getMessage', {
           message: newMessage,
+          sessionId: sessionId
         })
         .then(res => {
           
@@ -40,6 +50,9 @@ function ReactChatWidget(props){
           addResponseMessage(res.data.response[0].text)
           if (res.data.response.length > 1 && res.data.response[1].type == "option"){
             renderCustomComponent(Option, {options:res.data.response[1].options, handle:handleNewUserMessage})
+          }
+          else if (res.data.response.length > 1 && res.data.response[1].type == "carousel"){
+            renderCustomComponent(Carrousel, {options:res.data.response[1].options, handle:handleNewUserMessage})
           }
           
       
