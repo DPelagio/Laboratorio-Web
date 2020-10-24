@@ -13,6 +13,7 @@ function ReactChatWidget(props){
 
     const [res,setRes] = useState("")
     const [sessionId, setSessionId] = useState("")
+    const [shopcart ,setShopcart] = useState(false)
   
 
     useEffect(() => {
@@ -38,7 +39,8 @@ function ReactChatWidget(props){
         console.log(newMessage)
         axios.post('http://127.0.0.1:5002/getMessage', {
           message: newMessage,
-          sessionId: sessionId
+          sessionId: sessionId,
+          shopcart:'hola'
         })
         .then(res => {
           
