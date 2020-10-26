@@ -1,0 +1,22 @@
+.homeBody
+{
+    color: whitesmoke;
+}
+
+.preBuiltTable
+{
+    color: white;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.preBuiltTable img
+{
+    filter: invert();
+}
+
+.preBuiltTable td
+{
+    padding: 10px;
+}
