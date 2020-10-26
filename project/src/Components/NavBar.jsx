@@ -15,8 +15,8 @@ class NavBar extends React.Component {
             <Navbar bg="dark" variant="light">
                 <Navbar.Brand href="/">TECompu</Navbar.Brand>
                 <Nav className="mr-auto">
-                    <Nav.Link href="/home">Home</Nav.Link>
-                    <Nav.Link href="/pc">Buy PC</Nav.Link>
+                    <Nav.Link href="/home2">Home</Nav.Link>
+                    <Nav.Link href="/pc2">Buy PC</Nav.Link>
                     <Nav.Link href="/carrito">Cart</Nav.Link>
                 </Nav>
                 <Profile/>
