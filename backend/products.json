@@ -1,0 +1,96 @@
+{
+    "products": [
+        {
+            "name":"Intel Core i5",
+            "value":"i5",
+            "img":"https://www.intel.la/content/dam/products/hero/foreground/badge-9th-gen-core-i5-1x1.png",
+            "price":"$5000"
+        },
+        {
+            "name":"Intel Core i7",
+            "value":"i7",
+            "img":"https://www.intel.la/content/dam/products/hero/foreground/badge-9th-gen-core-i7-1x1.png",
+            "price":"$7000"
+        },
+        {
+            "name":"Intel Core i9",
+            "value":"i9",
+            "img":"https://www.intel.la/content/dam/products/hero/foreground/badge-9th-gen-core-i9-1x1.png",
+            "price":"$9000"
+        },
+        {
+            "name":"Procesador AMD Ryzen 5",
+            "value":"r5",
+            "img":"https://www.techpowerup.com/review/amd-ryzen-5-3600/images/small.png",
+            "price":"$5000"
+        },
+        {
+            "name":"Procesador AMD Ryzen 7",
+            "value":"r7",
+            "img":"https://www.techpowerup.com/review/amd-ryzen-7-3700x/images/small.png",
+            "price":"$7000"
+        },
+        {
+            "name":"Procesador AMD Ryzen 9",
+            "value":"r9",
+            "img":"https://www.techpowerup.com/review/amd-ryzen-9-3900x/images/small.png",
+            "price":"$9000"
+        },
+        {
+            "name":"8GB de memoria RAM",
+            "value":"8GB",
+            "image":"https://d26lpennugtm8s.cloudfront.net/stores/135/412/products/915107-m...",
+            "price":"$1000"
+        },
+        {
+            "name":"16GB de memoria RAM",
+            "value":"16GB",
+            "image":"https://d26lpennugtm8s.cloudfront.net/stores/135/412/products/995240-mla29454325255_022019-o-6802b2281000eff67f15519880572410-640-0.jpg",
+            "price":"$2000"
+        },
+        {
+            "name":"32GB de memoria RAM",
+            "value":"32GB",
+            "image":"https://www.logg.com.ar/static/photos/DDR4_3200_MHZ/2368_FJGIIHH6SX.jpg",
+            "price":"$4000"
+        },
+        {
+            "name":"500GB de memoria",
+            "value":"500GB",
+            "image":"https://ovalo24.com.pe/wp-content/uploads/2018/07/3407_1.jpg",
+            "price":"$800"
+        },
+        {
+            "name":"1TB de memoria",
+            "value":"1TB",
+            "image":"https://resources.claroshop.com/medios-plazavip/mkt/5d02847b6e0f3_mesa-de-trabajo-4jpg.jpg?width=677&height=677",
+            "price":"$1400"
+        },
+        {
+            "name":"2TB de memoria",
+            "value":"2TB",
+            "image":"https://www.cctvshopmx.com/wp-content/uploads/2017/11/TVM110042.png",
+            "price":"$2500"
+        },
+        {
+            "name":"250GB de memoria",
+            "value":"250GB",
+            "image":"https://media.kingston.com/kingston/product/ktc-product-ssd-sa2000m8r-250gb-3-sm.jpg",
+            "price":"$700"
+        },
+        {
+            "name":"500GB de memoria",
+            "value":"500GB",
+            "image":"https://media.kingston.com/kingston/product/ktc-product-ssd-sa2000m8r-500gb-3-sm.jpg",
+            "price":"$1200"
+        },
+        {
+            "name":"1TB de memoria",
+            "value":"1TB",
+            "image":"https://s.yimg.com/zp/MerchandiseImages/A0DD0BED2F-SP-8671502.jpg",
+            "price":"$2000"
+        }
+        
+
+    ]
+}
