@@ -2,7 +2,7 @@ import React from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import Profile from "../Components/Profile";
 
-import "bootstrap/dist/css/bootstrap.min.css";
+//import "bootstrap/dist/css/bootstrap.min.css";
 
 class NavBar extends React.Component {
     constructor(props){

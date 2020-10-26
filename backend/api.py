@@ -19,6 +19,8 @@ from flask import jsonify
 import pymongo
 from bson.objectid import ObjectId
 
+from twilio.rest import Client
+
 load_dotenv()
 
 app = Flask(__name__)
@@ -33,6 +35,8 @@ assistant_id = os.getenv("assistant_id")
 
 global_text = ''
 uri = os.getenv("uri")
+account_sid = os.getenv("account_sid")
+auth_token = os.getenv("auth_token")
 
 request_data = {
             "assistant_api_key": assistant_api_key,
@@ -64,14 +68,14 @@ def watson_create_session():
     return watson_session_id
 
 
-def watson_response(watson_session_id,message):
+def watson_response(watson_session_id,message, channel):
     
     iam_apikey = request_data.get("assistant_api_key")
     assistant_url = request_data.get("assistant_url")
     assistant_version = request_data.get('assistant_version')
 
     assistant = watson_instance(iam_apikey, assistant_url, assistant_version)
-    context = request_data.get('context') if 'context' in request_data else {}
+    #context = request_data.get('context') if 'context' in request_data else {}
 
     try:
         watson_response = assistant.message(
@@ -84,7 +88,15 @@ def watson_response(watson_session_id,message):
                     'return_context': True
                 }
             },
-            context=context
+            context={
+                'skills': {
+                    'main skill': {
+                        'user_defined': {
+                            'channel': channel
+                        }
+                    }
+                }
+            },
         ).get_result()
     except ValueError as ex:
         _logger.error("Value error: %s", ex)
@@ -119,8 +131,10 @@ def watson_response(watson_session_id,message):
     
     response = {
         "id":watson_response["output"]["generic"][0]["text"],
-        "session_id": watson_session_id
+        "session_id": watson_session_id,
     }
+
+    print(watson_response)
     
     return response
 
@@ -198,9 +212,44 @@ def addItemToUserCart(client, user_id, item_id):
     return mongoQuery
     
 
+def getClient():
+    wa_client = Client(account_sid, auth_token)
+    return wa_client
+
+
+def obtainLastMessage(wa_client):
+    messages = wa_client.messages.list(limit=2)
+    last_message = messages[0].body
+    return last_message
+
+
+def respondWA(wa_client, query):
+    print(query)
+    response = wa_client.messages.create( 
+                              from_='whatsapp:+14155238886',  
+                              body= query,
+                              to='whatsapp:+5215548885790' 
+                          )
+    return response
+
+def respondWACatalog(cliente, wa_client, ):
+    db = cliente.LabWeb
+    collection = db.products
+    #intent_response = collection.find_one({"id" : intent})
+    cont = 0
+    for x in collection.find():
+        if cont == 10:
+            break
+        response = wa_client.messages.create( 
+                        from_='whatsapp:+14155238886',  
+                        body= x['name'],
+                        media_url=x['image'],
+                        to='whatsapp:+5215548885790' 
+                    )
+        cont += 1
+
 class CREATE_SESSION(Resource):
     def get(self):
-        
         return watson_create_session()
 
 
@@ -211,11 +260,9 @@ class GET_MESSAGE(Resource):
         #Get the watson session id and message from the user request
         watson_session_id = request.json["sessionId"]
         global_text = request.json["message"]
-
-        #Get the response from watson
-        response = watson_response(watson_session_id,global_text)
-
-        #Get the response id
+        print("session:", watson_session_id)
+        response = watson_response(watson_session_id,global_text, "web")
+        print (response)
         intent = response["id"] ## Esto lo mandamos a mongo
         '''
         message = global_text
@@ -250,19 +297,32 @@ class ADD_ITEM_TO_CART(Resource):
 
 class GET_WHATSAPP_MESSAGE(Resource):
     def post(self):
-
+        # Connect to the mongodb
         cliente = connect_db()
-
+        # Create a session for watson
         watson_session_id = watson_create_session()
-        
+        # Create whatsapp client
+        wa_client = getClient()
 
-        response = watson_response(watson_session_id,global_text)
+        wa_message = obtainLastMessage(wa_client)
+
+        response = watson_response(watson_session_id, wa_message, "whatsapp")
+        print (response)
         
-        
-    
+        intent = response["id"]
+        intent_response = ''
+        if intent == "products":
+            respondWACatalog(cliente, wa_client)
+        elif intent == "anything_else":
+            intent_response = get_intent_response(cliente, intent)
+            response = respondWA(wa_client, intent_response[0]['text'])
+        else:
+            intent_response = get_intent_response(cliente, intent)
+            response = respondWA(wa_client, intent_response)
+
         exit_db(cliente)
-
-        return response
+        #print(intent_response)
+        
 
 api.add_resource(CREATE_SESSION, '/createSession')  # Route_0
 api.add_resource(GET_MESSAGE, '/getMessage')  # Route_1
