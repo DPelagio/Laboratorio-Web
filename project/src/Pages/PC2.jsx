@@ -35,7 +35,7 @@ class PC2 extends React.Component
                     </ul>
                 </div>
                 <div className="iconAuthor">Icons made by <a href="https://www.flaticon.com/authors/srip" title="srip">srip</a> from <a href="https://www.flaticon.com" title="Flaticon">www.flaticon.com</a></div>
-                <div style={{ display: 'flex', position: 'sticky', top: '1em', justifyContent: 'flex-end', padding: '0 1em' }}>
+                <div style={{ display: 'flex', position: 'sticky', top: '1em', justifyContent: 'flex-end', padding: '0 1em' , color: 'black'}}>
                     <ReactChatWidget />
                 </div>
             </div>
