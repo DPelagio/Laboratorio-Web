@@ -1,0 +1,25 @@
+.pcBody
+{
+    color: whitesmoke;
+}
+
+.iconAuthor
+{
+    color: whitesmoke;
+}
+
+.icons ul p
+{
+    display: inline-table;
+}
+
+.icons img
+{
+    filter: invert();
+    padding-right: 20px;
+}
+
+.icons p
+{
+    text-align: left;
+}
