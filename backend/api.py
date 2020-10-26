@@ -17,6 +17,7 @@ from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from flask import jsonify
 
 import pymongo
+from bson.objectid import ObjectId
 
 load_dotenv()
 
@@ -170,6 +171,33 @@ def get_intent_response(client, intent):
 
     return mongoQuery
 
+def addItemToUserCart(client, user_id, item_id):
+    db = client.LabWeb
+    collection = db.users
+
+    added = False
+
+    #intent_response = collection.find_one({"_id" : ObjectId("5f94b185d8db2b22d4fcdc8d")})
+
+    try:
+        response = collection.update_one({"_id" : ObjectId(user_id)}, {'$push': {'cart': item_id}})
+
+        print(response.matched_count)
+
+        if response.matched_count >= 1:
+            added = True
+    
+    except Exception as e:
+        print(e)
+        
+
+    mongoQuery = [{
+                    "added":added,
+                  }]
+        
+    return mongoQuery
+    
+
 class CREATE_SESSION(Resource):
     def get(self):
         
@@ -179,13 +207,15 @@ class CREATE_SESSION(Resource):
 class GET_MESSAGE(Resource):
     def post(self):
         cliente = connect_db()
-        #watson_session_id = watson_create_session()
+
+        #Get the watson session id and message from the user request
         watson_session_id = request.json["sessionId"]
-        #watson_session_id = request.json["watson_session_id"]
         global_text = request.json["message"]
-        print("session:", watson_session_id)
+
+        #Get the response from watson
         response = watson_response(watson_session_id,global_text)
-        print (response)
+
+        #Get the response id
         intent = response["id"] ## Esto lo mandamos a mongo
         '''
         message = global_text
@@ -196,14 +226,27 @@ class GET_MESSAGE(Resource):
         }'''
 
         #insertar_intent = write_intent(cliente, post)
-
-        print(intent)
         
         intent_response = get_intent_response(cliente, intent)
     
         exit_db(cliente)
 
         return jsonify(response=intent_response)
+
+class ADD_ITEM_TO_CART(Resource):
+    def post(self):
+        cliente = connect_db()
+
+        #Get the item id and user id from the user request
+        item_id = request.json["itemId"]
+        user_id = request.json["userId"]
+
+        
+        intent_response = addItemToUserCart(cliente, user_id ,item_id)
+    
+        exit_db(cliente)
+
+        return intent_response
 
 class GET_WHATSAPP_MESSAGE(Resource):
     def post(self):
@@ -219,11 +262,12 @@ class GET_WHATSAPP_MESSAGE(Resource):
     
         exit_db(cliente)
 
-        return intent_response
+        return response
 
 api.add_resource(CREATE_SESSION, '/createSession')  # Route_0
 api.add_resource(GET_MESSAGE, '/getMessage')  # Route_1
 api.add_resource(GET_WHATSAPP_MESSAGE, '/getWhatsappMessage')  # Route_2
+api.add_resource(ADD_ITEM_TO_CART, '/addItemToCart')  # Route_3
 
 if __name__ == '__main__':
     app.run(port='5002')

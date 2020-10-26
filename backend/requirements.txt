@@ -11,3 +11,5 @@ Flask-SQLAlchemy==2.4.1
 jsonify==0.5
 requests
 ibm_watson
+pymongo
+dnspython==2.0.0

@@ -2,6 +2,8 @@ import React ,{ useState ,useEffect} from "react";
 import { Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Carousel ,Card} from "react-bootstrap";
+import axios from 'axios'
+
 
 //import { Loading } from 'react-simple-chatbot';
 
@@ -13,6 +15,24 @@ function Carrousel(props){
 
         props.handle(String(event.target.value))
 
+        //addItemToCart(event.target.value,"5f94b229d8db2b22d4fcdc8e")
+
+    }
+
+    function addItemToCart(itemId,userdId){
+
+        axios.post('http://127.0.0.1:5002/addItemToCart', {
+          itemId: itemId,
+          userId: userdId
+        })
+        .then(res => {
+            console.log(res);
+      
+        })
+        .catch(function (error) {
+            console.log(error);
+          
+        });
     }
     
     
