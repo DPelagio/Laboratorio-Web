@@ -13,3 +13,4 @@ requests
 ibm_watson
 pymongo
 dnspython==2.0.0
+twilio==6.46.0
