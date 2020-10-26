@@ -18,6 +18,8 @@ from flask import jsonify
 
 import pymongo
 
+from twilio.rest import Client
+
 load_dotenv()
 
 app = Flask(__name__)
@@ -32,6 +34,8 @@ assistant_id = os.getenv("assistant_id")
 
 global_text = ''
 uri = os.getenv("uri")
+account_sid = os.getenv("account_sid")
+auth_token = os.getenv("auth_token")
 
 request_data = {
             "assistant_api_key": assistant_api_key,
@@ -170,9 +174,29 @@ def get_intent_response(client, intent):
 
     return mongoQuery
 
+
+def getClient():
+    wa_client = Client(account_sid, auth_token)
+    return wa_client
+
+
+def obtainLastMessage(wa_client):
+    messages = wa_client.messages.list(limit=1)
+    last_message = messages[0].body
+    return last_message
+
+
+def respondWA(wa_client, last_message):
+    response = wa_client.messages.create( 
+                              from_='whatsapp:+14155238886',  
+                              body='Tu mensaje fue: ' + last_message + ' adios!',
+                              to='whatsapp:+5215548885790' 
+                          )
+    return response
+
+
 class CREATE_SESSION(Resource):
     def get(self):
-        
         return watson_create_session()
 
 
@@ -205,21 +229,31 @@ class GET_MESSAGE(Resource):
 
         return jsonify(response=intent_response)
 
+
 class GET_WHATSAPP_MESSAGE(Resource):
     def post(self):
-
+        # Connect to the mongodb
         cliente = connect_db()
+        # Create a session for watson
+        # watson_session_id = watson_create_session()
+        # Create whatsapp client
+        wa_client = getClient()
 
-        watson_session_id = watson_create_session()
-        
+        wa_message = obtainLastMessage(wa_client)
 
-        response = watson_response(watson_session_id,global_text)
-        
-        
-    
+        """
+        response = watson_response(watson_session_id, wa_message)
+        print (response)
+        intent = response["id"]
+        print(intent)
+        intent_response = get_intent_response(cliente, intent)
+        """
         exit_db(cliente)
 
-        return intent_response
+        response = respondWA(wa_client, wa_message)
+
+        print(response)
+        
 
 api.add_resource(CREATE_SESSION, '/createSession')  # Route_0
 api.add_resource(GET_MESSAGE, '/getMessage')  # Route_1
