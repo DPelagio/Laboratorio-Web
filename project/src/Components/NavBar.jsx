@@ -7,7 +7,7 @@ import Profile from "../Components/Profile";
 class NavBar extends React.Component {
     constructor(props){
         super(props);
-        
+
     }
 
     render() {
@@ -15,9 +15,9 @@ class NavBar extends React.Component {
             <Navbar bg="dark" variant="light">
                 <Navbar.Brand href="/">TECompu</Navbar.Brand>
                 <Nav className="mr-auto">
-                    <Nav.Link href="/home2">Home</Nav.Link>
-                    <Nav.Link href="/pc2">Buy PC</Nav.Link>
-                    <Nav.Link href="/carrito">Cart</Nav.Link>
+                    <Nav.Link href="/comprar-pc">Comprar</Nav.Link>
+                    <Nav.Link href="/armar-pc">Armar</Nav.Link>
+                    <Nav.Link href="/carrito">Carrito</Nav.Link>
                 </Nav>
                 <Profile/>
             </Navbar>
