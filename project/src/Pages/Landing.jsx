@@ -1,20 +1,28 @@
 import React from "react";
 
 import "../styles/landing.css";
-import cpuIcon from "../img/003-cpu.png";
 
-class Landing extends React.Component {
-    render() {
-        return(
+class Landing extends React.Component
+{
+    render()
+    {
+        return (
             <div className="landingBody">
+                <h1>Bienvenido a TECompu</h1>
                 <li className="menuItem menuBuild">
                     <a href="/armar-pc">
-                        <p>Construir PC</p>
+                        <div>
+                            <p>Construir PC</p>
+                            <img src='/img/wrenchIcon.png' alt="" />
+                        </div>
                     </a>
                 </li>
                 <li className="menuItem menuPreset">
                     <a href="/comprar-pc">
-                    <p>Comprar PC</p>
+                        <div>
+                            <p>Comprar PC</p>
+                            <img src='/img/moneyIcon.png' alt="" />
+                        </div>
                     </a>
                 </li>
             </div>

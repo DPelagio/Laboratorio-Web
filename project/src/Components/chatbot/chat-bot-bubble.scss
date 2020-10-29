@@ -8,3 +8,11 @@
 {
   background-color: #282c34ff;
 }
+
+@media screen and (max-width:800px)
+{
+  .rcw-widget-container
+  {
+    height: auto;
+  }
+}
