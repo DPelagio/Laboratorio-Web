@@ -1,64 +1,98 @@
-.landingBody
-{
+.landingBody {
     color: whitesmoke;
     text-align: center;
     position: relative;
 }
 
-.menuItem
-{
+.landingBody h1 {
+    font-size: 5.2em;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-right: 10px;
+    padding-left: 10px;
+    text-align: center;
+    background-color: rgba(155, 155, 155, 0.407);
+    margin: 0px;
+    width: 100%;
+}
+
+.menuItem {
     display: inline-flex;
     justify-content: center;
     align-items: center;
     width: 50%;
-    height: 450px;
+    height: 500px;
     vertical-align: top;
 }
 
-.menuItem a
-{
-    background-color: rgba(53, 53, 53, 0.507);
+.menuItem a {
+    background-color: rgba(53, 53, 53, 0.5);
     width: 100%;
+    color: transparent;
 }
 
-.menuItem p
-{
+.menuItem a:hover {
+    background-color: rgba(69, 69, 69, 0.5);
+    width: 100%;
+    color: transparent;
+}
+
+.menuItem p {
     color: whitesmoke;
     font-size: 5em;
     font-style: bold;
 }
 
-.menuPreset
-{
-    background-image: url(../img/preBuiltPCBg.png), linear-gradient(310deg,#7a7a7a, #e0e0e0);
+.menuItem img {
+    filter: invert();
+    padding-bottom: 20px;
+}
+
+.menuItem div:hover {
+    transform: scale(1.1);
+}
+
+
+.menuPreset {
+    background-image: url(/img/preBuiltPCBg.png), linear-gradient(310deg, #7a7a7a, #e0e0e0);
     background-repeat: repeat;
     background-size: 50px, contain;
     background-position: center;
 }
 
-.menuBuild
-{
-    background-image:  url(../img/PartsBg_tight.png), linear-gradient(310deg, #e0e0e0, #7a7a7a);
+.menuBuild {
+    background-image: url(/img/PartsBg_tight.png), linear-gradient(310deg, #e0e0e0, #7a7a7a);
     background-repeat: repeat;
-    background-size: 50px,contain;
+    background-size: 50px, contain;
     background-position: center;
 }
 
-
-@media (max-width: 1000px) and (min-width: 500px)
-{
-    .menuItem
-    {
+@media (min-width: 830px) {
+    .menuItem {
         display: inline-flex;
         width: 50%;
     }
+
+    .menuItem p {
+        font-size: 4.5em;
+    }
+
+    .landingBody h1 {
+        font-size: 4.7em;
+    }
 }
 
-@media (max-width: 500px)
-{
-    .menuItem
-    {
+@media (max-width: 830px) {
+    .menuItem {
         display: inline-flex;
         width: 100%;
+    }
+
+    .menuItem p {
+        font-size: 4em;
+    }
+
+    .landingBody h1 {
+        font-size: 4.2em;
     }
 }
