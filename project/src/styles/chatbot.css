@@ -1,0 +1,12 @@
+@media screen and (max-width:800px)
+{
+  .rcw-widget-container
+  {
+    height: auto;
+  }
+
+  body
+  {
+      padding-bottom: 320px;
+  }
+}

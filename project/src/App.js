@@ -38,6 +38,9 @@ export default function App() {
 					exact path="/carrito"
 					component={Carrito}
 				/>
+                <Route exact path="/*">
+            <Landing />
+        </Route>
       </Switch>
     </Router>
   );
