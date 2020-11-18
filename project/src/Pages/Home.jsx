@@ -1,5 +1,7 @@
 import React from "react";
+import { Button } from "react-bootstrap";
 
+import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/home.css";
 
 class Home extends React.Component {
@@ -15,51 +17,51 @@ class Home extends React.Component {
                             Description del producto<br />
                             Especificaciones: <br />
                             Precio: <br />
-                                <button>Comprar</button> </td>
+                            <Button>Comprar</Button> </td>
                             <td><img src='./img/005-case.png' /><br />
                             Description del producto<br />
                             Especificaciones: <br />
                             Precio: <br />
-                                <button>Comprar</button> </td>
+                                <Button>Comprar</Button> </td>
                             <td><img src='./img/005-case.png' /><br />
                             Description del producto<br />
                             Especificaciones: <br />
                             Precio: <br />
-                                <button>Comprar</button> </td>
+                                <Button>Comprar</Button> </td>
                         </tr>
                         <tr>
                             <td><img src='./img/005-case.png' /><br />
                             Description del producto<br />
                             Especificaciones: <br />
                             Precio: <br />
-                                <button>Comprar</button> </td>
+                                <Button>Comprar</Button> </td>
                             <td><img src='./img/005-case.png' /><br />
                             Description del producto<br />
                             Especificaciones: <br />
                             Precio: <br />
-                                <button>Comprar</button> </td>
+                                <Button>Comprar</Button> </td>
                             <td><img src='./img/005-case.png'/><br />
                             Description del producto<br />
                             Especificaciones: <br />
                             Precio: <br />
-                                <button>Comprar</button> </td>
+                                <Button>Comprar</Button> </td>
                         </tr>
                         <tr>
                             <td><img src='./img/005-case.png' /><br />
                             Description del producto<br />
                             Especificaciones: <br />
                             Precio: <br />
-                                <button>Comprar</button> </td>
+                                <Button>Comprar</Button> </td>
                             <td><img src='./img/005-case.png'/><br />
                             Description del producto<br />
                             Especificaciones: <br />
                             Precio: <br />
-                                <button>Comprar</button> </td>
+                                <Button>Comprar</Button> </td>
                             <td><img src='./img/005-case.png' /><br />
                             Description del producto<br />
                             Especificaciones: <br />
                             Precio: <br />
-                                <button>Comprar</button> </td>
+                                <Button>Comprar</Button> </td>
                         </tr>
                     </table>
                 </div>

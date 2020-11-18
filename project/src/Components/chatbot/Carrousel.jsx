@@ -27,28 +27,28 @@ function Carrousel(props){
         })
         .then(res => {
             console.log(res);
-      
+
         })
         .catch(function (error) {
             console.log(error);
-          
+
         });
     }
-    
-    
+
+
     const items = []
     for (const i of props.options) {
         items.push(
-            
+
             <Carousel.Item key = {i.value}>
-                <Card style={{ width: '100%' }}>
-                    <Card.Img style={{ height: '150px' }, {width: '150px'}, {textAlign: 'center'}} variant="top" src={i.image} />
+                <Card style={{ width: '300px' }}>
+                    <Card.Img  style={{textAlign: 'center'}} variant="top" src={i.image} />
                     <Card.Body>
                     <Card.Title style={{textAlign: 'center'}}>{i.name}</Card.Title>
                     <Card.Text style={{textAlign: 'center'}}>
                         {i.price}
                     </Card.Text >
-                    <div style={{display:"flex"},{alignItems: 'center'},{justifyContent: 'center'}}>
+                    <div style={{display:"flex"},{alignItems: 'center'},{justifyContent: 'center'}, {textAlign: 'center'}}>
                         <Button  value={i.value} onClick={handleClick}>
                                 Agregar al carrito
                         </Button>
@@ -56,7 +56,7 @@ function Carrousel(props){
                     </Card.Body>
                 </Card>
             </Carousel.Item>
-            
+
         )
 
       }
