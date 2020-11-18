@@ -3,6 +3,7 @@ import os
 import json
 import logging
 import requests
+import pdfkit
 
 import flask
 from flask import Flask, request
@@ -223,6 +224,33 @@ def obtainLastMessage(wa_client):
     return last_message
 
 
+def createHTML():
+    f = open("catalog.html", "w")
+    text = '''<!DOCTYPE html>
+    <html>
+        <body>
+            <h1>Catalogo</h1>
+    '''
+    f.write(text)
+    f.close()
+
+
+def addImages(images):
+    f = open("catalog.html", "a")
+    for x in images:
+        value = '        <img src=', x['image'],' alt="Catalog Image" width="500" height="600">\n'
+        f.write(value)
+
+    f.write('    </body>\n</html>')
+    f.close()
+
+
+def writePDF(collection_array):
+    createHTML()
+    addImages(collection_array)
+    pdfkit.from_file("catalog.html", "file.pdf")
+
+
 def respondWA(wa_client, query):
     print(query)
     response = wa_client.messages.create( 
@@ -232,7 +260,8 @@ def respondWA(wa_client, query):
                           )
     return response
 
-def respondWACatalog(cliente, wa_client, ):
+
+def respondWACatalog(cliente, wa_client):
     db = cliente.LabWeb
     collection = db.products
     #intent_response = collection.find_one({"id" : intent})
@@ -247,6 +276,7 @@ def respondWACatalog(cliente, wa_client, ):
                         to='whatsapp:+5215548885790' 
                     )
         cont += 1
+
 
 class CREATE_SESSION(Resource):
     def get(self):
