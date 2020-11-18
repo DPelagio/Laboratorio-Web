@@ -7,21 +7,21 @@ export const parts = [
     {
         image: '../img/004-ram.png',
         part_name:'Memoria RAM',
-        desc: 'Descripción del componente'
+        desc: 'La memoria de acceso aleatorio (Random Access Memory, RAM) se utiliza como memoria de trabajo de computadoras y otros dispositivos para el sistema operativo, los programas y la mayor parte del software. En la RAM se cargan todas las instrucciones que ejecuta la unidad central de procesamiento (procesador) y otras unidades del computador, además de contener los datos que manipulan los distintos programas.'
     },
     {
         image: '../img/001-harddisk.png',
         part_name:'Disco duro',
-        desc: 'Descripción del componente'
+        desc: 'Dispositivo de almacenamiento de datos que emplea un sistema de grabación magnética para almacenar y recuperar archivos digitales. Se compone de uno o más platos o discos rígidos, recubiertos con material magnético y unidos por un mismo eje que gira a gran velocidad dentro de una caja metálica sellada.'
     },
     {
         image: '../img/002-vga.png',
         part_name:'Tarjeta gráfica',
-        desc: 'Descripción del componente'
+        desc: 'Tarjeta de expansión de la placa base del ordenador que se encarga de procesar los datos provenientes de la unidad central de procesamiento (CPU) y transformarlos en información comprensible y representable en el dispositivo de salida (por ejemplo: monitor, televisor o proyector). Estas tarjetas utilizan una unidad de procesamiento gráfico o GPU, que muchas veces se usa erróneamente para referirse a la tarjeta gráfica en sí.'
     },
     {
         image: '../img/005-case.png',
         part_name:'Case',
-        desc: 'Descripción del componente'
+        desc: 'El gabinete (Case) es la parte externa de la computadora y hay dos tipos principales, torre y de escritorio .'
     },
 ];
