@@ -2,7 +2,7 @@ import React, { useState ,useEffect} from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from 'axios';
 import CarrouselCart from '../Components/Carrousel-cart'
-import { Button } from "react-bootstrap";
+import { Button ,Table} from "react-bootstrap";
 
 
 function Carrito(props){
@@ -66,7 +66,19 @@ function Carrito(props){
             {(!isLoading) ?
                 (products.length > 0 ?
                         <div>
-                            <CarrouselCart items={products}/>
+                            <Table bordered style={{textAlign:'center'}}>
+                                <thead style={{color:'white'}}>
+                                    <tr>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <CarrouselCart items={products} total={total} setTotal={setTotal}/>
+                                </tbody>
+                            </Table>
                             <h1>Total: &#36;{total}</h1>
                             <Button variant="primary" size="lg" block>
                                 Comprar

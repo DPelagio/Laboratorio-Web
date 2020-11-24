@@ -216,6 +216,36 @@ def addItemToUserCart(client, user_id, item_id):
                   }]
         
     return mongoQuery
+
+def removeItemFromUserCart(client, user_id, item_id):
+    db = client.LabWeb
+    collection = db.users
+    products = db.products
+
+    remove = False
+
+    product = products.find_one({"_id" : ObjectId(item_id)})
+    user = collection.find_one({"_id" : user_id})
+
+    total = user['total'] - product['price']
+
+    try:
+        response = collection.update_one({"_id" : user_id}, {'$pull': { 'cart': { "_id": ObjectId(item_id) } },"$set": { 'total': total }})
+
+        print(response.matched_count)
+
+        if response.matched_count >= 1:
+            remove = True
+    
+    except Exception as e:
+        print(e)
+    
+
+    mongoQuery = [{
+                    "remove":remove,
+                  }]
+        
+    return mongoQuery
     
 
 def parse_json(data):
@@ -385,6 +415,21 @@ class ADD_ITEM_TO_CART(Resource):
 
         return intent_response
 
+class REMOVE_ITEM_TO_CART(Resource):
+    def post(self):
+        cliente = connect_db()
+
+        #Get the item id and user id from the user request
+        item_id = request.json["itemId"]
+        user_id = request.json["userId"]
+
+        
+        intent_response = removeItemFromUserCart(cliente, user_id ,item_id)
+    
+        exit_db(cliente)
+
+        return intent_response
+
 class GET_CART(Resource):
     def post(self):
         cliente = connect_db()
@@ -435,6 +480,7 @@ api.add_resource(GET_MESSAGE, '/getMessage')  # Route_1
 api.add_resource(GET_WHATSAPP_MESSAGE, '/getWhatsappMessage')  # Route_2
 api.add_resource(ADD_ITEM_TO_CART, '/addItemToCart')  # Route_3
 api.add_resource(GET_CART, '/getCart')  # Route_4
+api.add_resource(REMOVE_ITEM_TO_CART, '/removeItemToCart') # Route_5
 
 if __name__ == '__main__':
     app.run(port='5002')
