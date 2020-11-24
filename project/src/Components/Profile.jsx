@@ -6,6 +6,7 @@ import LogOutButton from "../Components/LogOutButton"
 const Profile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
 
+
   return (
     <>
       {(isLoading === false) ?
@@ -14,7 +15,7 @@ const Profile = () => {
           
             <div>
               
-              <h5 style={{ paddingRight: '1em' }}>{user.name} </h5>
+              <h5 style={{ paddingRight: '1em' }}>{user.nickname} </h5>
               
 
             </div> 
