@@ -38,6 +38,7 @@ global_text = ''
 uri = os.getenv("uri")
 account_sid = os.getenv("account_sid")
 auth_token = os.getenv("auth_token")
+wa_session_id = os.getenv("session_id")
 
 request_data = {
             "assistant_api_key": assistant_api_key,
@@ -252,7 +253,6 @@ def writePDF(collection_array):
 
 
 def respondWA(wa_client, query):
-    print(query)
     response = wa_client.messages.create( 
                               from_='whatsapp:+14155238886',  
                               body= query,
@@ -277,6 +277,39 @@ def respondWACatalog(cliente, wa_client):
                     )
         cont += 1
 
+
+def respondWABuildPC(wa_client, query):
+    print(query)
+    # Show to the user the options
+    question = query[0]["text"]
+    print(query[0]["text"])
+    response = wa_client.messages.create( 
+                              from_='whatsapp:+14155238886',  
+                              body= question,
+                              to='whatsapp:+5215548885790' 
+                          )
+    if len(query) > 1:
+        if query[1]["type"] == 'option':
+            options = query[1]["options"]
+            for i in options:
+                print(i["name"])
+                response = wa_client.messages.create( 
+                                from_='whatsapp:+14155238886',  
+                                body= i["name"],
+                                to='whatsapp:+5215548885790' 
+                            )
+        elif query[1]["type"] == 'carousel':
+            options = query[1]["options"]
+            for i in options:
+                print(i["name"])
+                response = wa_client.messages.create( 
+                                from_='whatsapp:+14155238886',  
+                                body= i["name"],
+                                media_url=i['image'],
+                                to='whatsapp:+5215548885790' 
+                            )
+    else:
+        print("Mandar carrito en un pdf")
 
 class CREATE_SESSION(Resource):
     def get(self):
@@ -330,14 +363,13 @@ class GET_WHATSAPP_MESSAGE(Resource):
         # Connect to the mongodb
         cliente = connect_db()
         # Create a session for watson
-        watson_session_id = watson_create_session()
+        watson_session_id = wa_session_id  # Create the static session for WA
         # Create whatsapp client
         wa_client = getClient()
 
         wa_message = obtainLastMessage(wa_client)
 
         response = watson_response(watson_session_id, wa_message, "whatsapp")
-        print (response)
         
         intent = response["id"]
         intent_response = ''
@@ -346,9 +378,12 @@ class GET_WHATSAPP_MESSAGE(Resource):
         elif intent == "anything_else":
             intent_response = get_intent_response(cliente, intent)
             response = respondWA(wa_client, intent_response[0]['text'])
-        else:
+        elif intent == "hello_whatsapp":
             intent_response = get_intent_response(cliente, intent)
             response = respondWA(wa_client, intent_response)
+        else:
+            intent_response = get_intent_response(cliente, intent)
+            response = respondWABuildPC(wa_client, intent_response)
 
         exit_db(cliente)
         #print(intent_response)
