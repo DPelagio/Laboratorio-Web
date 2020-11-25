@@ -11,6 +11,7 @@ from flask_restful import Resource, Api
 from flask_cors import CORS
 from dotenv import load_dotenv
 from flask_api import status
+from flask import redirect, render_template, request, send_file, session, url_for
 
 from jsonschema import validate, ValidationError
 from ibm_watson import AssistantV2, ApiException
@@ -21,6 +22,8 @@ import pymongo
 from bson.objectid import ObjectId
 
 from twilio.rest import Client
+
+import time
 
 load_dotenv()
 
@@ -49,9 +52,6 @@ request_data = {
 
 
 def watson_create_session():
-
-
-    
     iam_apikey = request_data.get("assistant_api_key")
     assistant_url = request_data.get("assistant_url")
     assistant_version = request_data.get('assistant_version')
@@ -236,20 +236,27 @@ def createHTML():
     f.close()
 
 
-def addImages(images):
+def addImages():
     f = open("catalog.html", "a")
-    for x in images:
-        value = '        <img src=', x['image'],' alt="Catalog Image" width="500" height="600">\n'
-        f.write(value)
+    linku = 'https://www.google.com/url?sa=i&url=https%3A%2F%2Frule34.xxx%2Findex.php%3Fpage%3Dpost%26s%3Dview%26id%3D4144576&psig=AOvVaw0AjyTxvhYODxHdjBI9R5rw&ust=1606361638382000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCJCz48jhnO0CFQAAAAAdAAAAABAD'
+    value = '        <img src={} alt="Catalog Image" width="500" height="600">\n'.format(linku)
+    f.write(value)
 
     f.write('    </body>\n</html>')
     f.close()
 
 
-def writePDF(collection_array):
+def writePDF(wa_client):
     createHTML()
-    addImages(collection_array)
-    pdfkit.from_file("catalog.html", "file.pdf")
+    addImages()
+    pdfkit.from_file("catalog.html", "carrito.pdf")
+    wa_client = getClient()
+    response = wa_client.messages.create( 
+                              from_='whatsapp:+14155238886',  
+                              body= "Este es nuestro catalogo!!!",
+                              media_url=['http://266e59f64bf7.ngrok.io/pdf'],
+                              to='whatsapp:+5215548885790' 
+                          )
 
 
 def respondWA(wa_client, query):
@@ -300,6 +307,7 @@ def respondWABuildPC(wa_client, query):
                             )
         elif query[1]["type"] == 'carousel':
             options = query[1]["options"]
+            print(options)
             for i in options:
                 print(i["name"])
                 response = wa_client.messages.create( 
@@ -308,12 +316,21 @@ def respondWABuildPC(wa_client, query):
                                 media_url=i['image'],
                                 to='whatsapp:+5215548885790' 
                             )
+                time.sleep(1)
     else:
         print("Mandar carrito en un pdf")
+        writePDF(wa_client)
+
 
 class CREATE_SESSION(Resource):
     def get(self):
         return watson_create_session()
+
+
+class PDF(Resource):
+    def get(self):
+        filename = 'carrito.pdf'
+        return send_file(filename, mimetype='application/pdf')
 
 
 class GET_MESSAGE(Resource):
@@ -393,6 +410,7 @@ api.add_resource(CREATE_SESSION, '/createSession')  # Route_0
 api.add_resource(GET_MESSAGE, '/getMessage')  # Route_1
 api.add_resource(GET_WHATSAPP_MESSAGE, '/getWhatsappMessage')  # Route_2
 api.add_resource(ADD_ITEM_TO_CART, '/addItemToCart')  # Route_3
+api.add_resource(PDF, '/pdf')  # Route 4
 
 if __name__ == '__main__':
     app.run(port='5002')
