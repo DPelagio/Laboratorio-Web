@@ -7,90 +7,159 @@
             "price":"$5000"
         },
         {
+            "id":"5f962c68a42dfd8d9bcbc8ed",
             "name":"Intel Core i7",
             "value":"i7",
             "img":"https://www.intel.la/content/dam/products/hero/foreground/badge-9th-gen-core-i7-1x1.png",
             "price":"$7000"
         },
         {
+            "id":"5f962c7ca42dfd8d9bcbcb6b",
             "name":"Intel Core i9",
             "value":"i9",
             "img":"https://www.intel.la/content/dam/products/hero/foreground/badge-9th-gen-core-i9-1x1.png",
             "price":"$9000"
         },
         {
+            "id":"5f962c8da42dfd8d9bcbce52",
             "name":"Procesador AMD Ryzen 5",
             "value":"r5",
             "img":"https://www.techpowerup.com/review/amd-ryzen-5-3600/images/small.png",
             "price":"$5000"
         },
         {
+            "id":"5f962ca2a42dfd8d9bcbd132",
             "name":"Procesador AMD Ryzen 7",
             "value":"r7",
             "img":"https://www.techpowerup.com/review/amd-ryzen-7-3700x/images/small.png",
             "price":"$7000"
         },
         {
+            "id":"5f962cb4a42dfd8d9bcbd343",
             "name":"Procesador AMD Ryzen 9",
             "value":"r9",
             "img":"https://www.techpowerup.com/review/amd-ryzen-9-3900x/images/small.png",
             "price":"$9000"
         },
         {
+            "id":"5f962cc2a42dfd8d9bcbd4e3",
             "name":"8GB de memoria RAM",
             "value":"8GB",
-            "image":"https://d26lpennugtm8s.cloudfront.net/stores/135/412/products/915107-m...",
+            "image":"https://d26lpennugtm8s.cloudfront.net/stores/135/412/products/915107-mla29454324270_022019-o-4b070e295bea23a55715519880872611-1024-1024.jpg",
             "price":"$1000"
         },
         {
+            "id":"5f962cd5a42dfd8d9bcbd832",
             "name":"16GB de memoria RAM",
             "value":"16GB",
             "image":"https://d26lpennugtm8s.cloudfront.net/stores/135/412/products/995240-mla29454325255_022019-o-6802b2281000eff67f15519880572410-640-0.jpg",
             "price":"$2000"
         },
         {
+            "id":"5f962ce5a42dfd8d9bcbda05",
             "name":"32GB de memoria RAM",
             "value":"32GB",
             "image":"https://www.logg.com.ar/static/photos/DDR4_3200_MHZ/2368_FJGIIHH6SX.jpg",
             "price":"$4000"
         },
         {
-            "name":"500GB de memoria",
+            "id":"5f962d0aa42dfd8d9bcbdf2e",
+            "name":"500GB de memoria HDD",
             "value":"500GB",
             "image":"https://ovalo24.com.pe/wp-content/uploads/2018/07/3407_1.jpg",
             "price":"$800"
         },
         {
-            "name":"1TB de memoria",
+            "id":"5f962d1aa42dfd8d9bcbe138",
+            "name":"1TB de memoria HDD",
             "value":"1TB",
             "image":"https://resources.claroshop.com/medios-plazavip/mkt/5d02847b6e0f3_mesa-de-trabajo-4jpg.jpg?width=677&height=677",
             "price":"$1400"
         },
         {
-            "name":"2TB de memoria",
+            "id":"5f962d3ba42dfd8d9bcbe523",
+            "name":"2TB de memoria HDD",
             "value":"2TB",
             "image":"https://www.cctvshopmx.com/wp-content/uploads/2017/11/TVM110042.png",
             "price":"$2500"
         },
         {
-            "name":"250GB de memoria",
+            "id":"5f962d51a42dfd8d9bcbe862",
+            "name":"250GB de memoria SSD",
             "value":"250GB",
-            "image":"https://media.kingston.com/kingston/product/ktc-product-ssd-sa2000m8r-250gb-3-sm.jpg",
+            "image":"https://www.primeabgb.com/wp-content/uploads/2019/02/SAMSUNG-970-EVO-PLUS-250GB-NVME-INTERNAL-SSD-MZ-V7S250BW.jpg",
             "price":"$700"
         },
         {
-            "name":"500GB de memoria",
+            "id":"5f962d69a42dfd8d9bcbf028",
+            "name":"500GB de memoria SSD",
             "value":"500GB",
-            "image":"https://media.kingston.com/kingston/product/ktc-product-ssd-sa2000m8r-500gb-3-sm.jpg",
+            "image":"https://image-us.samsung.com/SamsungUS/samsungbusiness/products/computing/ssd/client/970-evo-plus-500gb/MZ-V7S500BW_001_Front_Black_01-17-19.jpg?$bu-pdp-image-mobile-jpg$",
             "price":"$1200"
         },
         {
-            "name":"1TB de memoria",
+            "id":"5f962d7ca42dfd8d9bcbf356",
+            "name":"1TB de memoria SSD",
             "value":"1TB",
-            "image":"https://s.yimg.com/zp/MerchandiseImages/A0DD0BED2F-SP-8671502.jpg",
+            "image":"https://www.courts.com.sg/media/catalog/product/i/p/ip137611_00_1.jpg?quality=80&bg-color=255,255,255&fit=bounds&height=&width=&canvas=:",
             "price":"$2000"
+        },
+        {
+            "id":"5fb814741e23cf5fe9ce9110",
+            "name":"GTX 1650",
+            "value":"GTX 1650",
+            "image":"https://www.asus.com/media/global/products/0lyViEA3ze6tlnpa/P_setting_fff_1_90_end_600.png",
+            "price":"5000"
+        },
+        {
+            "id":"5fb814ab1e23cf5fe9ce9111",
+            "name":"RTX 2060",
+            "value":"RTX 2060",
+            "image":"https://www.definepc.com/img/p/1/8/7/7/1877-large_default.jpg",
+            "price":"9000"
+        },
+        {
+            "id":"5fb814bc1e23cf5fe9ce9112",
+            "name":"RTX 3080",
+            "value":"RTX 3080",
+            "image":"https://www.asus.com/media/global/products/0tsjxhfskwlqwzsg/P_setting_fff_1_90_end_600.png",
+            "price":"24000"
+        },
+        {
+            "id":"5fb814cd1e23cf5fe9ce9113",
+            "name":"RX5600",
+            "value":"RX 5600",
+            "image":"https://www.cyberpuerta.mx/img/product/L/CP-GIGABYTE-GV-R56XTWF2OC-6GD-1.jpg",
+            "price":"6000"
+        },
+        {
+            "id":"5fb814dd1e23cf5fe9ce9114",
+            "name":"RX5700",
+            "value":"RX 5700",
+            "image":"https://dfestore.com/wp-content/uploads/2019/08/8663-1.png",
+            "price":"9000"
+        },
+        {
+            "id":"5fb814ea1e23cf5fe9ce9115",
+            "name":"Eagle Warrior Gladiator Ventana RGB",
+            "value":"eagleWarrior",
+            "image":"https://www.cyberpuerta.mx/img/product/L/CP-EAGLEWARRIOR-CG11GLADIATOREGW-1.jpg",
+            "price":"1100"
+        },
+        {
+            "id":"5fb814f51e23cf5fe9ce9116",
+            "name":"Corsair Carbide Spec Omega",
+            "value":"corsair",
+            "image":"https://img.pccomponentes.com/articles/17/170723/5.jpg",
+            "price":"3000"
+        },
+        {
+            "id":"5fb814ff1e23cf5fe9ce9117",
+            "name":"NZXT H710i",
+            "value":"nzxt",
+            "image":"https://www.shwetacomputer.com/wp-content/uploads/2020/04/h710i-matte-white1-800x800.jpg?width=677&height=677",
+            "price":"5500"
         }
-        
 
     ]
 }

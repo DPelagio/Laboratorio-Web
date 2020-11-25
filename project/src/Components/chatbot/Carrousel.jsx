@@ -2,6 +2,7 @@ import React ,{ useState ,useEffect} from "react";
 import { Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Carousel ,Card} from "react-bootstrap";
+import { useAuth0 } from "@auth0/auth0-react";
 import axios from 'axios'
 
 
@@ -9,13 +10,16 @@ import axios from 'axios'
 
 function Carrousel(props){
 
+    const { user, isAuthenticated, isLoading } = useAuth0();
 
     function handleClick(event: MouseEvent<HTMLButtonElement>){
         event.preventDefault();
 
         props.handle(String(event.target.value))
 
-        //addItemToCart(event.target.value,"5f94b229d8db2b22d4fcdc8e")
+        var userId = user.sub.replace('auth0|','');
+        
+        addItemToCart(event.target.id,userId)
 
     }
 
@@ -49,7 +53,7 @@ function Carrousel(props){
                         {i.price}
                     </Card.Text >
                     <div style={{display:"flex"},{alignItems: 'center'},{justifyContent: 'center'}, {textAlign: 'center'}}>
-                        <Button  value={i.value} onClick={handleClick}>
+                        <Button id={i.id} value={i.value} onClick={handleClick}>
                                 Agregar al carrito
                         </Button>
                     </div>
