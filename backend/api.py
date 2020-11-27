@@ -42,6 +42,7 @@ uri = os.getenv("uri")
 account_sid = os.getenv("account_sid")
 auth_token = os.getenv("auth_token")
 wa_session_id = os.getenv("session_id")
+ngrok = os.getenv("ngrok_url")
 
 request_data = {
             "assistant_api_key": assistant_api_key,
@@ -310,7 +311,6 @@ def createHTML():
     text = '''<!DOCTYPE html>
     <html>
         <body>
-            <h1>Catalogo</h1>
     '''
     f.write(text)
     f.close()
@@ -321,7 +321,7 @@ def addImages(products):
 
     text = '''
                 <h1>Catalogo</h1>
-                    <table>
+                    <table style="text-align: center;">
                         <tr>
                             <th>Image</th>
                             <th>Name</th>
@@ -333,16 +333,16 @@ def addImages(products):
 
     total = 0
 
-    link = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fes.qr-code-generator.com%2F&psig=AOvVaw1ZE0NRyXjZoCu891RlbdXQ&ust=1606528704692000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOi4pfnPoe0CFQAAAAAdAAAAABAD"
+    link = "https://borealtech.com/wp-content/uploads/2018/10/codigo-qr-1024x1024.jpg"
 
     for p in products:
         total += p["price"]
         row = '''
                         <tr>
                             <td>
-                                <img src={} alt="Catalog Image" width="500" height="600">
+                                <img src={} alt="Catalog Image" width="200" height="200">
                             </td>
-                            <td>{}</td>
+                            <td style="text-align: center;">{}</td>
                             <td>{}</td>
                         </tr>
         '''.format(p["image"],p["name"],p["price"])
@@ -353,7 +353,7 @@ def addImages(products):
     text_2 = '''
                     </table>
                     <h1>Total: {}</h1>
-                    <img src={} alt="Catalog Image" width="500" height="600">
+                    <img src={} alt="Catalog Image" width="500" height="500">
         </body>\n</html>
     '''.format(total,link)
 
@@ -362,14 +362,15 @@ def addImages(products):
 
 
 def writePDF(wa_client,products):
+    url_ngrok = "{}/pdf".format(ngrok)
     createHTML()
     addImages(products)
     pdfkit.from_file("catalog.html", "carrito.pdf")
     wa_client = getClient()
     response = wa_client.messages.create( 
                               from_='whatsapp:+14155238886',  
-                              body= "Este es nuestro catalogo!!!",
-                              media_url=['http://266e59f64bf7.ngrok.io/pdf'],
+                              body= "Este es tu carrito, Paga con el código QR en tu banco!!!",
+                              media_url=[url_ngrok],
                               to='whatsapp:+5215548885790' 
                           )
 
@@ -545,7 +546,7 @@ class GET_WHATSAPP_MESSAGE(Resource):
             response = respondWA(wa_client, intent_response)
         else:
             intent_response = get_intent_response(cliente, intent)
-            response = respondWABuildPC(cliente,response["context"],wa_client, intent_response)
+            response = respondWABuildPC(cliente,wa_client, intent_response, response["context"])
 
         exit_db(cliente)
         #print(intent_response)
