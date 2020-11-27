@@ -333,6 +333,8 @@ def addImages(products):
 
     total = 0
 
+    link = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fes.qr-code-generator.com%2F&psig=AOvVaw1ZE0NRyXjZoCu891RlbdXQ&ust=1606528704692000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOi4pfnPoe0CFQAAAAAdAAAAABAD"
+
     for p in products:
         total += p["price"]
         row = '''
@@ -351,8 +353,9 @@ def addImages(products):
     text_2 = '''
                     </table>
                     <h1>Total: {}</h1>
+                    <img src={} alt="Catalog Image" width="500" height="600">
         </body>\n</html>
-    '''.format(total)
+    '''.format(total,link)
 
     f.write(text_2)
     f.close()
