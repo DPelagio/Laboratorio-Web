@@ -496,12 +496,7 @@ api.add_resource(CREATE_SESSION, '/createSession')  # Route_0
 api.add_resource(GET_MESSAGE, '/getMessage')  # Route_1
 api.add_resource(GET_WHATSAPP_MESSAGE, '/getWhatsappMessage')  # Route_2
 api.add_resource(ADD_ITEM_TO_CART, '/addItemToCart')  # Route_3
-<<<<<<< HEAD
 api.add_resource(PDF, '/pdf')  # Route 4
-=======
-api.add_resource(GET_CART, '/getCart')  # Route_4
-api.add_resource(REMOVE_ITEM_TO_CART, '/removeItemToCart') # Route_5
->>>>>>> 61ac4b259a6cef39c18a15b8b0dc6a3c064e30fd
 
 if __name__ == '__main__':
     app.run(port='5002')
