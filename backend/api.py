@@ -60,7 +60,20 @@ def watson_create_session():
 
     try:
         watson_session = assistant.create_session(
-            assistant_id=request_data.get("assistant_id")
+            assistant_id=request_data.get("assistant_id"),
+            context={
+                'skills': {
+                    'main skill': {
+                        'user_defined': {
+                            'cpu': '',
+                            'ram':'',
+                            'storage':'',
+                            'graphics':'',
+                            'case':''
+                        }
+                    }
+                }
+            }
         ).get_result()
         watson_session_id = watson_session["session_id"]
     except KeyError:
@@ -134,9 +147,8 @@ def watson_response(watson_session_id,message, channel):
     response = {
         "id":watson_response["output"]["generic"][0]["text"],
         "session_id": watson_session_id,
+        "context":watson_response["context"]["skills"]["main skill"]["user_defined"]
     }
-
-    print(watson_response)
     
     return response
 
@@ -269,6 +281,17 @@ def getUserCart(client, user_id):
 
         
     return mongoQuery
+
+def getWACart(client,context):
+
+    db = client.LabWeb
+    products = db.products
+
+    product_context = [ObjectId(context["cpu"]),ObjectId(context["ram"]),ObjectId(context["storage"]),ObjectId(context["graphics"]),ObjectId(context["case"])]
+
+    product_json = products.find({"_id" : {"$in": product_context}})
+
+    return parse_json(product_json)
     
 
 def getClient():
@@ -293,19 +316,51 @@ def createHTML():
     f.close()
 
 
-def addImages():
+def addImages(products):
     f = open("catalog.html", "a")
-    linku = 'https://www.google.com/url?sa=i&url=https%3A%2F%2Frule34.xxx%2Findex.php%3Fpage%3Dpost%26s%3Dview%26id%3D4144576&psig=AOvVaw0AjyTxvhYODxHdjBI9R5rw&ust=1606361638382000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCJCz48jhnO0CFQAAAAAdAAAAABAD'
-    value = '        <img src={} alt="Catalog Image" width="500" height="600">\n'.format(linku)
-    f.write(value)
 
-    f.write('    </body>\n</html>')
+    text = '''
+                <h1>Catalogo</h1>
+                    <table>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                        </tr>
+    '''
+
+    f.write(text)
+
+    total = 0
+
+    for p in products:
+        total += p["price"]
+        row = '''
+                        <tr>
+                            <td>
+                                <img src={} alt="Catalog Image" width="500" height="600">
+                            </td>
+                            <td>{}</td>
+                            <td>{}</td>
+                        </tr>
+        '''.format(p["image"],p["name"],p["price"])
+
+        f.write(row)
+
+
+    text_2 = '''
+                    </table>
+                    <h1>Total: {}</h1>
+        </body>\n</html>
+    '''.format(total)
+
+    f.write(text_2)
     f.close()
 
 
-def writePDF(wa_client):
+def writePDF(wa_client,products):
     createHTML()
-    addImages()
+    addImages(products)
     pdfkit.from_file("catalog.html", "carrito.pdf")
     wa_client = getClient()
     response = wa_client.messages.create( 
@@ -342,7 +397,7 @@ def respondWACatalog(cliente, wa_client):
         cont += 1
 
 
-def respondWABuildPC(wa_client, query):
+def respondWABuildPC(client, wa_client, query, context):
     print(query)
     # Show to the user the options
     question = query[0]["text"]
@@ -376,7 +431,8 @@ def respondWABuildPC(wa_client, query):
                 time.sleep(1)
     else:
         print("Mandar carrito en un pdf")
-        writePDF(wa_client)
+        products = getWACart(client,context)
+        writePDF(wa_client,products)
 
 
 class CREATE_SESSION(Resource):
@@ -486,7 +542,7 @@ class GET_WHATSAPP_MESSAGE(Resource):
             response = respondWA(wa_client, intent_response)
         else:
             intent_response = get_intent_response(cliente, intent)
-            response = respondWABuildPC(wa_client, intent_response)
+            response = respondWABuildPC(cliente,response["context"],wa_client, intent_response)
 
         exit_db(cliente)
         #print(intent_response)
@@ -496,12 +552,9 @@ api.add_resource(CREATE_SESSION, '/createSession')  # Route_0
 api.add_resource(GET_MESSAGE, '/getMessage')  # Route_1
 api.add_resource(GET_WHATSAPP_MESSAGE, '/getWhatsappMessage')  # Route_2
 api.add_resource(ADD_ITEM_TO_CART, '/addItemToCart')  # Route_3
-<<<<<<< HEAD
 api.add_resource(PDF, '/pdf')  # Route 4
-=======
 api.add_resource(GET_CART, '/getCart')  # Route_4
 api.add_resource(REMOVE_ITEM_TO_CART, '/removeItemToCart') # Route_5
->>>>>>> 61ac4b259a6cef39c18a15b8b0dc6a3c064e30fd
 
 if __name__ == '__main__':
     app.run(port='5002')
