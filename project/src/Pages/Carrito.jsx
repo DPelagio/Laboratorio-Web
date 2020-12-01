@@ -64,31 +64,33 @@ function Carrito(props){
     return(
         <div>
             {(!isLoading) ?
-                
-                    <div>
-                        <Table bordered style={{textAlign:'center'}}>
-                            <thead style={{color:'white'}}>
-                                <tr>
-                                <th>Image</th>
-                                <th>Name</th>
-                                <th>Price</th>
-                                <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <CarrouselCart items={products} total={total} setTotal={setTotal}/>
-                            </tbody>
-                        </Table>
-                        <h1>Total: &#36;{total}</h1>
-                        <Button variant="primary" size="lg" block>
-                            Comprar
-                        </Button>
-                    </div>
-                :
-                    <h1>No hay productos...</h1>
+                (products.length > 0 ?
+                        <div>
+                            <Table bordered style={{textAlign:'center'}}>
+                                <thead style={{color:'white'}}>
+                                    <tr>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <CarrouselCart items={products} total={total} setTotal={setTotal}/>
+                                </tbody>
+                            </Table>
+                            <h1>Total: &#36;{total}</h1>
+                            <Button variant="primary" size="lg" block>
+                                Comprar
+                            </Button>
+                        </div>
+                    :
+                        <h1>No hay productos...</h1>
                     
+                )
+            :
                 
-            
+                <h1>Cargando...</h1>
      
             }
         </div>
